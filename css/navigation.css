@@ -1,46 +1,167 @@
-/* css/navigation.css */
-.nav-container {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 1000;
-    background: rgba(0, 0, 0, 0.7);
-    backdrop-filter: blur(15px);
-    border-bottom: 1px solid var(--glass-border);
+/* Навигационная панель: боковое меню и верхняя шапка.
+   Стили адаптированы под узкий Sidebar из оригинала.
+*/
+
+:root {
+    --nav-width: 80px; /* Узкая ширина для иконок */
+    --nav-width-expanded: 240px; /* Ширина при наведении, если нужно */
 }
 
-.nav-content {
-    max-width: 1200px;
-    margin: 0 auto;
+/* 1. Боковая панель (Sidebar) */
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: var(--nav-width);
+    background: rgba(10, 10, 10, 0.4);
+    backdrop-filter: blur(20px);
+    border-right: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 0;
+    z-index: 1000;
+    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Контейнер для логотипа сверху */
+.nav-logo {
+    margin-bottom: 40px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Список ссылок */
+.nav-links {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    list-style: none;
+    width: 100%;
+}
+
+.nav-item {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.nav-link {
+    position: relative;
+    color: rgba(255, 255, 255, 0.5);
+    text-decoration: none;
+    transition: 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 12px;
+}
+
+.nav-link i {
+    font-size: 1.4rem;
+}
+
+/* Эффект активной страницы или наведения */
+.nav-link:hover, .nav-link.active {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* Индикатор активной страницы (вертикальная полоска слева) */
+.nav-link.active::before {
+    content: '';
+    position: absolute;
+    left: -15px;
+    top: 25%;
+    height: 50%;
+    width: 4px;
+    background: #6366f1;
+    border-radius: 0 4px 4px 0;
+    box-shadow: 0 0 15px rgba(99, 102, 241, 0.8);
+}
+
+/* 2. Верхняя панель (Header) — поиск и профиль */
+.top-header {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: var(--nav-width);
+    height: 70px;
+    padding: 0 40px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 20px;
+    background: transparent;
+    z-index: 999;
 }
 
-.logo {
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: var(--accent-gold);
-    text-decoration: none;
-    letter-spacing: 4px;
-}
-
-.nav-links {
+.search-bar {
     display: flex;
-    gap: 25px;
+    align-items: center;
+    width: 300px;
+    position: relative;
 }
 
-.nav-links a {
-    color: var(--text-dim);
-    text-decoration: none;
-    font-size: 0.85rem;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+.user-profile-nav {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    cursor: pointer;
+    padding: 5px 15px;
+    border-radius: 30px;
     transition: 0.3s;
 }
 
-.nav-links a:hover, .nav-links a.active {
-    color: var(--text-main);
-    border-bottom: 1px solid var(--accent-gold);
+.user-profile-nav:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.user-avatar {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.user-name {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #fff;
+}
+
+/* 3. Адаптивность для мобильных устройств */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 100%;
+        height: 60px;
+        bottom: 0;
+        top: auto;
+        flex-direction: row;
+        padding: 0 20px;
+        border-right: none;
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    
+    .nav-links {
+        flex-direction: row;
+        justify-content: space-around;
+        gap: 0;
+    }
+    
+    .nav-logo, .top-header {
+        display: none;
+    }
+    
+    body {
+        padding-left: 0 !important;
+        padding-bottom: 60px;
+    }
 }

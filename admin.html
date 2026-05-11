@@ -3,71 +3,103 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Панель администратора | Tea Master HUB</title>
+    <title>Панель управления | Tea Master HUB</title>
+    
+    <link rel="icon" href="./favicon.ico" type="image/x-icon">
     
     <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/glassmorphism.css">
+    <link rel="stylesheet" href="./css/components.css">
     <link rel="stylesheet" href="./css/navigation.css">
-    <link rel="stylesheet" href="./css/admin.css">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <div class="bg-overlay"></div>
+    <div class="main-layout">
+        <div class="bg-overlay"></div>
+        
+        <div id="nav-placeholder"></div>
 
-    <div id="nav-placeholder"></div>
+        <main class="content-wrapper">
+            <header style="margin-bottom: 40px;">
+                <h1 class="text-gradient">Панель управления</h1>
+                <p style="color: var(--text-dim);">Добро пожаловать в кабинет мастера. Здесь вы можете управлять обучением и командой.</p>
+            </header>
 
-    <main class="container">
-        <header style="margin-bottom: 40px;">
-            <h1>Панель управления</h1>
-            <p style="color: var(--text-dim);">Мониторинг обучения и управление персоналом</p>
-        </header>
+            <div class="grid-container admin-stats-grid" style="margin-bottom: 40px;">
+                </div>
 
-        <div class="admin-layout">
-            <section class="glass-card">
-                <div class="calendar-header">
-                    <h3>Май 2026</h3>
-                    <div class="calendar-controls">
-                        <button id="prev-month">&lt;</button>
-                        <button id="next-month">&gt;</button>
+            <h2 style="margin-bottom: 20px;">Быстрые действия</h2>
+            <div class="grid-container" style="margin-bottom: 40px;">
+                <div class="glass-card card-content" id="add-employee-btn" style="cursor: pointer; border: 1px dashed rgba(255,255,255,0.3);">
+                    <div class="flex-center" style="height: 100px; flex-direction: column; gap: 10px;">
+                        <i class="fa-solid fa-user-plus" style="font-size: 2rem; color: var(--accent-blue);"></i>
+                        <span>Добавить сотрудника</span>
                     </div>
                 </div>
-                
-                <div id="calendar-grid" class="calendar-grid">
-                    <div class="day-cell" style="color: var(--accent-gold);">Пн</div>
-                    <div class="day-cell" style="color: var(--accent-gold);">Вт</div>
-                    <div class="day-cell" style="color: var(--accent-gold);">Ср</div>
-                    <div class="day-cell" style="color: var(--accent-gold);">Чт</div>
-                    <div class="day-cell" style="color: var(--accent-gold);">Пт</div>
-                    <div class="day-cell" style="color: var(--accent-gold);">Сб</div>
-                    <div class="day-cell" style="color: var(--accent-gold);">Вс</div>
-                    </div>
 
-                <div style="margin-top: 30px;">
-                    <h4>Заметки на сегодня</h4>
-                    <div id="admin-notes" style="margin-top: 15px;">
-                        <p style="font-size: 0.9rem; border-left: 2px solid var(--accent-gold); padding-left: 15px;">
-                            Проверить аттестацию новых сотрудников по разделу "Улуны".
-                        </p>
+                <div class="glass-card card-content" onclick="alert('Переход к редактору уроков...')" style="cursor: pointer;">
+                    <div class="flex-center" style="height: 100px; flex-direction: column; gap: 10px;">
+                        <i class="fa-solid fa-file-circle-plus" style="font-size: 2rem; color: var(--accent-purple);"></i>
+                        <span>Создать новый урок</span>
                     </div>
+                </div>
+
+                <div class="glass-card card-content" onclick="location.href='search.html'" style="cursor: pointer;">
+                    <div class="flex-center" style="height: 100px; flex-direction: column; gap: 10px;">
+                        <i class="fa-solid fa-boxes-stacked" style="font-size: 2rem; color: #10b981;"></i>
+                        <span>Каталог продуктов</span>
+                    </div>
+                </div>
+            </div>
+
+            <section class="glass-panel" style="padding: 30px;">
+                <h2 style="margin-bottom: 20px;">Текущий прогресс команды</h2>
+                <div class="employee-list">
+                    <p style="color: var(--text-dim); text-align: center; padding: 20px;">Загрузка данных о сотрудниках...</p>
                 </div>
             </section>
+        </main>
+    </div>
 
-            <aside style="display: flex; flex-direction: column; gap: 30px;">
-                <section class="glass-card">
-                    <h3>Прогресс команды</h3>
-                    <div id="employee-stats" style="margin-top: 20px;">
-                        </div>
-                </section>
-
-                <section class="glass-card">
-                    <h3>Объявления</h3>
-                    <textarea id="announcement-text" placeholder="Введите текст для всех сотрудников..." 
-                        style="width: 100%; background: rgba(0,0,0,0.2); border: 1px solid var(--glass-border); 
-                        border-radius: 10px; color: white; padding: 10px; margin: 15px 0; min-height: 80px;"></textarea>
-                    <button style="width: 100%;" onclick="alert('Уведомление отправлено!')">Опубликовать</button>
-                </section>
-            </aside>
+    <div id="add-employee-modal" class="overlay-blur" style="display: none; justify-content: center; align-items: center; z-index: 2000;">
+        <div class="glass-modal" style="max-width: 500px; width: 95%;">
+            <div class="modal-header">
+                <h2>Новый сотрудник</h2>
+                <p style="color: var(--text-dim);">Заполните данные для отправки приглашения</p>
+            </div>
+            
+            <form id="add-employee-form" style="margin-top: 30px;">
+                <div class="form-group">
+                    <i class="fa-solid fa-user form-icon"></i>
+                    <input type="text" class="glass-input glass-input-with-icon" placeholder="ФИО сотрудника" required style="width: 100%;">
+                </div>
+                <div class="form-group">
+                    <i class="fa-solid fa-envelope form-icon"></i>
+                    <input type="email" class="glass-input glass-input-with-icon" placeholder="Электронная почта" required style="width: 100%;">
+                </div>
+                <div class="form-group">
+                    <i class="fa-solid fa-briefcase form-icon"></i>
+                    <select class="glass-input glass-input-with-icon" style="width: 100%; background: #1a1a1a;">
+                        <option value="trainee">Стажер</option>
+                        <option value="barista">Бариста</option>
+                        <option value="master">Мастер</option>
+                    </select>
+                </div>
+                
+                <div style="display: flex; gap: 15px; margin-top: 20px;">
+                    <button type="button" class="glass-button" style="flex: 1; background: rgba(255,255,255,0.05);" onclick="document.getElementById('add-employee-modal').style.display='none'">Отмена</button>
+                    <button type="submit" class="glass-button" style="flex: 1; background: var(--accent-blue);">Создать</button>
+                </div>
+            </form>
         </div>
-    </main>
+    </div>
 
-    <script type="module" src="./js/main.js"></script>
+    <script src="./js/supabase-config.js"></script>
+    <script src="./js/data.js"></script>
+    <script src="./js/modules/auth.js"></script>
+    <script src="./js/modules/ui-utils.js"></script>
+    <script src="./js/modules/admin-logic.js"></script>
+    <script src="./js/main.js"></script>
 </body>
 </html>

@@ -1,84 +1,62 @@
 /**
- * ГЛАВНЫЙ ФАЙЛ УПРАВЛЕНИЯ (Entry Point)
- * Этот скрипт подключается ко всем HTML-страницам.
+ * main.js - Точка входа в приложение.
+ * Инициализирует общие компоненты и запускает логику конкретных страниц.
  */
 
-// Импортируем компоненты и модули
-import { initNavigation } from './components/navigation.js';
-import { initAuth } from './modules/auth.js';
-import { initSearch } from './modules/search-logic.js';
-import { initTasks } from './modules/tasks-logic.js';
-import { initAdmin } from './modules/admin-logic.js';
-
-// Основная функция инициализации, которая сработает после загрузки DOM
 document.addEventListener('DOMContentLoaded', () => {
-    
-    // 1. Инициализация общих элементов
-    // Вставляет меню во все страницы через <div id="nav-placeholder">
-    initNavigation();
-    
-    // Проверка прав доступа и текущей сессии пользователя
-    initAuth();
+    // 1. Проверяем авторизацию (из auth.js)
+    if (typeof Auth !== 'undefined') {
+        Auth.init();
+    }
 
-    // 2. Определение текущей страницы по URL
-    const currentPath = window.location.pathname;
-    
-    // Чистое имя файла (например, "search.html")
-    const currentPage = currentPath.split("/").pop() || 'index.html';
+    // 2. Вставляем навигацию (из ui-utils.js)
+    if (typeof UI !== 'undefined') {
+        UI.insertNavigation();
+    }
 
-    console.log(`[System] Загружена страница: ${currentPage}`);
+    // 3. Определяем текущую страницу и запускаем её специфическую логику
+    const currentPage = window.location.pathname.split("/").pop();
 
-    // 3. Запуск логики в зависимости от страницы
-    try {
-        switch (currentPage) {
-            case 'index.html':
-                initHomePage();
-                break;
-            
-            case 'search.html':
-                initSearch();
-                break;
-            
-            case 'tasks.html':
-                initTasks();
-                break;
-            
-            case 'admin.html':
-                initAdmin();
-                break;
-            
-            case 'profile.html':
-                initProfilePage();
-                break;
-
-            default:
-                // Если мы в корне или на неизвестной странице
-                if (currentPage === '' || currentPage === '/') {
-                    initHomePage();
-                }
-                break;
-        }
-    } catch (error) {
-        console.error(`[Error] Ошибка при инициализации модуля ${currentPage}:`, error);
+    switch (currentPage) {
+        case 'search.html':
+            initProductsPage();
+            break;
+        case 'tasks.html':
+            initTasksPage();
+            break;
+        case 'admin.html':
+            initAdminPage();
+            break;
+        case 'profile.html':
+            initProfilePage();
+            break;
     }
 });
 
 /**
- * Вспомогательная логика для Главной страницы
+ * Пример инициализации страницы продуктов
  */
-function initHomePage() {
-    console.log("Логика главной страницы запущена");
-    // Здесь можно добавить анимации появления карточек (Reveal effect)
+function initProductsPage() {
+    const container = document.querySelector('.grid-container');
+    if (!container) return;
+
+    // Отрисовываем все товары из data.js при загрузке
+    const productsHtml = TeaHubData.products.map(p => UI.renderProductCard(p)).join('');
+    container.innerHTML = productsHtml;
+
+    // Тут можно добавить логику поиска/фильтрации
 }
 
 /**
- * Вспомогательная логика для Профиля
+ * Инициализация профиля
  */
 function initProfilePage() {
-    const role = localStorage.getItem('userRole') || 'Гость';
-    const profileName = document.getElementById('profile-user-name');
+    const user = Auth.getCurrentUser();
+    if (!user) return;
+
+    // Подставляем имя пользователя в заголовок
+    const nameEl = document.querySelector('.user-name-display');
+    if (nameEl) nameEl.textContent = user.name;
     
-    if (profileName) {
-        profileName.textContent = role === 'admin' ? 'Администратор HUB' : 'Сотрудник магазина';
-    }
+    // Здесь будет код для отрисовки графиков статистики
 }

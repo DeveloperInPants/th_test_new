@@ -3,34 +3,115 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tea Master HUB | Обучающая платформа</title>
+    <title>Tea Master HUB | Главная</title>
+    
+    <link rel="icon" href="./favicon.ico" type="image/x-icon">
+    
     <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/glassmorphism.css">
+    <link rel="stylesheet" href="./css/components.css">
     <link rel="stylesheet" href="./css/navigation.css">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <div class="bg-overlay"></div>
-    <div id="nav-placeholder"></div>
-
-    <main class="container" style="text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 80vh;">
-        <h1 style="font-size: 3rem; margin-bottom: 20px;">Tea Master HUB</h1>
-        <p style="font-size: 1.2rem; max-width: 600px; color: var(--text-dim); margin-bottom: 40px;">
-            Профессиональная образовательная среда для сотрудников чайной индустрии. Изучай традиции, совершенствуй сервис, становись мастером.
-        </p>
+    <div class="main-layout">
+        <div class="bg-overlay"></div>
         
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; width: 100%; max-width: 900px;">
-            <div class="glass-card">
-                <h3>Знания</h3>
-                <p style="font-size: 0.8rem; margin: 15px 0;">База из 30 сортов чая и кофе с подробными гайдами.</p>
-                <button onclick="location.href='search.html'">В каталог</button>
-            </div>
-            <div class="glass-card">
-                <h3>Обучение</h3>
-                <p style="font-size: 0.8rem; margin: 15px 0;">Интерактивные курсы и план стажировки на неделю.</p>
-                <button onclick="location.href='tasks.html'">К урокам</button>
-            </div>
-        </div>
-    </main>
+        <div id="nav-placeholder"></div>
 
-    <script type="module" src="./js/main.js"></script>
+        <main class="content-wrapper flex-center" style="flex-direction: column; text-align: center; justify-content: center; min-height: 90vh;">
+            
+            <section class="hero-section">
+                <h1 class="text-gradient" style="font-size: clamp(2.5rem, 8vw, 4rem); margin-bottom: 15px;">Tea Master HUB</h1>
+                <p style="font-size: 1.2rem; color: var(--text-dim); max-width: 700px; margin: 0 auto 40px auto; padding: 0 20px;">
+                    Профессиональная образовательная среда для чайных мастеров. 
+                    Инструменты обучения, база знаний и аналитика в одном месте.
+                </p>
+
+                <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+                    <button class="glass-button" id="open-login-btn" style="padding: 15px 40px; font-size: 1.1rem; min-width: 200px;">
+                        <i class="fa-solid fa-right-to-bracket" style="margin-right: 10px;"></i> Войти в систему
+                    </button>
+                    <button class="glass-button" onclick="location.href='search.html'" style="padding: 15px 40px; font-size: 1.1rem; min-width: 200px; background: rgba(255,255,255,0.05);">
+                        Каталог продукции
+                    </button>
+                </div>
+            </section>
+
+            <div class="grid-container" style="margin-top: 60px; max-width: 1100px; width: 100%;">
+                <div class="glass-card card-content">
+                    <i class="fa-solid fa-book-open" style="font-size: 2rem; color: var(--accent-blue); margin-bottom: 15px;"></i>
+                    <h3 class="card-title">Обучение</h3>
+                    <p class="card-description">Интерактивные курсы по теории чая, методам заваривания и сервису.</p>
+                </div>
+                <div class="glass-card card-content">
+                    <i class="fa-solid fa-microscope" style="font-size: 2rem; color: var(--accent-purple); margin-bottom: 15px;"></i>
+                    <h3 class="card-title">Тестирование</h3>
+                    <p class="card-description">Проверка знаний с мгновенным результатом и фиксацией прогресса.</p>
+                </div>
+                <div class="glass-card card-content">
+                    <i class="fa-solid fa-users-gear" style="font-size: 2rem; color: #10b981; margin-bottom: 15px;"></i>
+                    <h3 class="card-title">Управление</h3>
+                    <p class="card-description">Инструменты для работодателей по мониторингу успеваемости команды.</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div id="login-modal" class="overlay-blur" style="display: none; justify-content: center; align-items: center; z-index: 2000;">
+        <div class="glass-modal" style="max-width: 420px; width: 90%;">
+            <div class="modal-header">
+                <h2 style="font-size: 2rem;">Вход</h2>
+                <p style="color: var(--text-dim); margin-top: 10px;">Введите учетные данные</p>
+            </div>
+            
+            <form id="login-form" style="margin-top: 30px;">
+                <div class="form-group">
+                    <i class="fa-solid fa-at form-icon"></i>
+                    <input type="email" class="glass-input glass-input-with-icon" placeholder="Email" required style="width: 100%;">
+                </div>
+                <div class="form-group">
+                    <i class="fa-solid fa-key form-icon"></i>
+                    <input type="password" class="glass-input glass-input-with-icon" placeholder="Пароль" required style="width: 100%;">
+                </div>
+                
+                <button type="submit" class="glass-button" style="width: 100%; background: var(--accent-blue); margin-top: 15px; font-weight: 600;">
+                    Авторизоваться
+                </button>
+                
+                <div style="margin-top: 25px; text-align: center; font-size: 0.85rem; color: var(--text-dim);">
+                    Нужна помощь? <a href="#" style="color: #fff; text-decoration: underline;">Связаться с администратором</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="./js/supabase-config.js"></script>
+    <script src="./js/data.js"></script>
+    <script src="./js/modules/auth.js"></script>
+    <script src="./js/modules/ui-utils.js"></script>
+    <script src="./js/main.js"></script>
+
+    <script>
+        // Логика управления модальным окном (визуальная часть)
+        const modal = document.getElementById('login-modal');
+        const openBtn = document.getElementById('open-login-btn');
+        
+        if (openBtn) {
+            openBtn.onclick = () => modal.style.display = 'flex';
+        }
+        
+        window.onclick = (event) => {
+            if (event.target == modal) modal.style.display = 'none';
+        }
+
+        // Если пользователь уже вошел, при клике на "Войти" перенаправляем его в профиль
+        const user = Auth.getCurrentUser();
+        if (user && openBtn) {
+            openBtn.innerHTML = '<i class="fa-solid fa-user" style="margin-right: 10px;"></i> Личный кабинет';
+            openBtn.onclick = () => Auth.redirectByRole(user.role);
+        }
+    </script>
 </body>
 </html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Теория | Tea Master HUB</title>
+    
+    <link rel="icon" href="./favicon.ico" type="image/x-icon">
+    
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/glassmorphism.css">
+    <link rel="stylesheet" href="./css/components.css">
+    <link rel="stylesheet" href="./css/navigation.css">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        .theory-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+        .theory-article {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.9);
+        }
+        .theory-article h1, .theory-article h2 {
+            margin-top: 30px;
+            color: #fff;
+        }
+        .theory-article img {
+            width: 100%;
+            border-radius: 20px;
+            margin: 25px 0;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="main-layout">
+        <div class="bg-overlay"></div>
+        
+        <div id="nav-placeholder"></div>
+
+        <main class="content-wrapper">
+            <div class="theory-container">
+                <a href="tasks.html" style="display: inline-flex; align-items: center; gap: 10px; margin-bottom: 30px; color: var(--text-dim);">
+                    <i class="fa-solid fa-arrow-left"></i> Вернуться к списку уроков
+                </a>
+
+                <article class="glass-panel theory-article" id="theory-content">
+                    <div style="padding: 100px; text-align: center;">
+                        <i class="fa-solid fa-spinner fa-spin" style="font-size: 2rem; color: var(--accent-blue);"></i>
+                        <p style="margin-top: 20px;">Загрузка материала...</p>
+                    </div>
+                </article>
+
+                <div style="margin-top: 40px; display: flex; justify-content: flex-end;">
+                    <button class="glass-button" style="background: var(--accent-blue);" onclick="location.href='tasks.html'">
+                        Я изучил материал <i class="fa-solid fa-check" style="margin-left: 10px;"></i>
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="./js/supabase-config.js"></script>
+    <script src="./js/data.js"></script>
+    <script src="./js/modules/auth.js"></script>
+    <script src="./js/modules/ui-utils.js"></script>
+    <script src="./js/main.js"></script> 
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Ждем небольшую паузу, чтобы данные точно загрузились (опционально)
+            const urlParams = new URLSearchParams(window.location.search);
+            const lessonId = urlParams.get('id') || 'l1'; 
+
+            const theoryBox = document.getElementById('theory-content');
+            
+            // Проверяем, существуют ли данные в объекте TeaHubData
+            if (typeof TeaHubData !== 'undefined' && TeaHubData.theoryContent[lessonId]) {
+                const data = TeaHubData.theoryContent[lessonId];
+                theoryBox.innerHTML = `
+                    <h1 class="text-gradient">${data.title}</h1>
+                    <div style="margin-top: 30px;">
+                        ${data.content}
+                    </div>
+                `;
+                document.title = `${data.title} | Tea Master HUB`;
+            } else {
+                theoryBox.innerHTML = `
+                    <div style="padding: 50px; text-align: center;">
+                        <h2>Материал не найден</h2>
+                        <p>Похоже, этот урок еще находится в разработке.</p>
+                    </div>
+                `;
+            }
+        });
+    </script>
+</body>
+</html>

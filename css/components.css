@@ -1,0 +1,140 @@
+/* Файл компонентов: сетки, карточки, кнопки и индикаторы.
+   Использует переменные и эффекты из glassmorphism.css
+*/
+
+/* 1. Сетки (Grids) */
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 25px;
+    padding: 20px;
+}
+
+/* 2. Карточки (Обучение и Продукты) */
+.card-content {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.card-image {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 12px;
+    margin-bottom: 15px;
+}
+
+.card-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #fff;
+}
+
+.card-description {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.4;
+    flex-grow: 1;
+}
+
+/* 3. Индикаторы прогресса (как в Обучении) */
+.progress-container {
+    width: 100%;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    margin: 15px 0;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #6366f1, #a855f7); /* Фиолетово-синий градиент из оригинала */
+    border-radius: 10px;
+    transition: width 0.5s ease-in-out;
+}
+
+/* 4. Тесты (Варианты ответов) */
+.test-option {
+    display: block;
+    width: 100%;
+    padding: 15px 20px;
+    margin-bottom: 12px;
+    text-align: left;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    color: white;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.test-option:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.test-option.selected {
+    background: rgba(99, 102, 241, 0.2);
+    border-color: #6366f1;
+}
+
+/* 5. Бейджи/Теги (Категории чая) */
+.badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    background: rgba(255, 255, 255, 0.1);
+    margin-bottom: 10px;
+}
+
+/* 6. Статистика (Карточки с цифрами) */
+.stat-card {
+    padding: 25px;
+    text-align: center;
+}
+
+.stat-value {
+    font-size: 2.5rem;
+    font-weight: 700;
+    display: block;
+    margin-bottom: 5px;
+    background: linear-gradient(to bottom, #fff, #999);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.stat-label {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.5);
+    text-transform: uppercase;
+}
+
+/* 7. Формы и модальные окна */
+.modal-header {
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.form-group {
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.form-icon {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0.5;
+}
+
+.glass-input-with-icon {
+    padding-left: 45px !important;
+}

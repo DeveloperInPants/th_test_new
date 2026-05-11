@@ -1,38 +1,55 @@
-// js/modules/admin-logic.js
+/**
+ * admin-logic.js - Логика панели управления (admin.html)
+ */
 
-export function initAdmin() {
-    const calendarGrid = document.getElementById('calendar-grid');
-    const statsContainer = document.getElementById('employee-stats');
-    if (!calendarGrid) return;
+function initAdminPage() {
+    const user = Auth.getCurrentUser();
+    if (!user || user.role !== 'master') return;
 
-    // Генерация календаря (упрощенная)
-    const daysInMonth = 31;
-    const currentDay = new Date().getDate();
-    
-    let calendarHTML = '';
-    for (let i = 1; i <= daysInMonth; i++) {
-        calendarHTML += `<div class="day-cell ${i === currentDay ? 'current' : ''}">${i}</div>`;
-    }
-    calendarGrid.innerHTML = calendarHTML;
+    const statsContainer = document.querySelector('.admin-stats-grid');
+    const employeeList = document.querySelector('.employee-list');
 
-    // Демонстрация прогресса сотрудников
-    const staff = [
-        { name: "Иван Иванов", progress: 75 },
-        { name: "Анна Смирнова", progress: 40 },
-        { name: "Петр Сидоров", progress: 95 }
-    ];
-
+    // 1. Отрисовка общей статистики мастера
     if (statsContainer) {
-        statsContainer.innerHTML = staff.map(person => `
-            <div class="progress-container">
-                <div class="progress-label">
-                    <span>${person.name}</span>
-                    <span>${person.progress}%</span>
-                </div>
-                <div class="progress-bar-bg">
-                    <div class="progress-bar-fill" style="width: ${person.progress}%"></div>
-                </div>
+        const s = TeaHubData.userStats.master;
+        statsContainer.innerHTML = `
+            <div class="glass-card stat-card">
+                <span class="stat-value">${s.totalEmployees}</span>
+                <span class="stat-label">Сотрудников</span>
             </div>
-        `).join('');
+            <div class="glass-card stat-card">
+                <span class="stat-value">${s.averageProgress}%</span>
+                <span class="stat-label">Средний прогресс</span>
+            </div>
+            <div class="glass-card stat-card">
+                <span class="stat-value">${s.activeCourses}</span>
+                <span class="stat-label">Активных курсов</span>
+            </div>
+        `;
+    }
+
+    // 2. Логика открытия модалки добавления сотрудника (как на скриншоте)
+    const addBtn = document.getElementById('add-employee-btn');
+    const modal = document.getElementById('add-employee-modal');
+
+    if (addBtn && modal) {
+        addBtn.onclick = () => modal.style.display = 'flex';
+        
+        // Закрытие модалки
+        window.onclick = (e) => {
+            if (e.target === modal) modal.style.display = 'none';
+        };
+    }
+
+    // 3. Обработка формы добавления
+    const form = document.getElementById('add-employee-form');
+    if (form) {
+        form.onsubmit = (e) => {
+            e.preventDefault();
+            alert('Сотрудник успешно добавлен и приглашение отправлено на почту!');
+            modal.style.display = 'none';
+        };
     }
 }
+
+window.initAdminPage = initAdminPage;
